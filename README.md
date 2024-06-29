@@ -1,0 +1,1 @@
+Developed an Inventory Management System using Python, Docker, RabbitMQ, and MySQL. The project features efficient inventory tracking and management, leveraging RabbitMQ for robust message queuing and communication, and Docker for containerization, ensuring scalable and portable deployment. Implemented a MySQL database for reliable data storage and management.
