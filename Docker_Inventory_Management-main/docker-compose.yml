@@ -1,0 +1,91 @@
+version: '3'
+services:
+  rabbitmq:
+    image: rabbitmq:3.13.1-management
+    ports:
+      - "5672:5672"  # RabbitMQ
+      - "15672:15672"  # RabbitMQ Management UI
+    volumes:
+      - rabbit-server:/var/lib/rabbitmq
+
+
+  producer:
+    build:
+      context: producer
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5000"
+    depends_on:
+      - rabbitmq
+    environment:
+        AMQP_URL: 'amqp://rabbitmq?connection_attempts=10&retry_delay=10'
+        FLASK_ENV: development
+    volumes:
+      - ./producer:/usr/src/app/producer
+      - ./templates:/usr/src/app/templates
+
+  consumer_1:
+    build:
+      context: consumer_1
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+        AMQP_URL: 'amqp://rabbitmq?connection_attempts=10&retry_delay=10'
+    volumes:
+      - ./consumer_1:/usr/src/app/consumer_1
+
+
+  consumer_2:
+    build:
+      context: consumer_2
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+        AMQP_URL: 'amqp://rabbitmq?connection_attempts=10&retry_delay=10'
+    volumes:
+      - ./consumer_2:/usr/src/app/consumer_2
+
+
+  consumer_3:
+    build:
+      context: consumer_3
+      dockerfile: Dockerfile
+    depends_on:
+      - rabbitmq
+    environment:
+        AMQP_URL: 'amqp://rabbitmq?connection_attempts=10&retry_delay=10'
+    volumes:
+      - ./consumer_3:/usr/src/app/consumer_3
+
+  consumer_4:
+    build:
+      context: consumer_4
+      dockerfile: Dockerfile
+    ports:
+      - "5002:5002"
+    depends_on:
+      - rabbitmq
+    environment:
+        AMQP_URL: 'amqp://rabbitmq?connection_attempts=10&retry_delay=10'
+    volumes:
+      - ./consumer_4:/usr/src/app/consumer_4
+
+  mysql:
+    image: mysql:latest
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: inventory_management
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+
+volumes:
+    rabbit-server:
+      driver: local
+    mysql-data:
+      driver: local

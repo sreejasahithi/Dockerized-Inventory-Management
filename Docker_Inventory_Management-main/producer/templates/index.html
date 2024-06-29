@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Select Product</title>
+</head>
+<body>
+
+<h2>Select Product</h2>
+
+<form id="productForm" action="http://localhost:5001/submit" method="POST">
+    <label for="productName">Select Product:</label><br>
+    <select id="productName" name="productName">
+        <option value="Dell XPS 15">Dell XPS 15</option>
+        <option value="MacBook Pro 16">MacBook Pro 16</option>
+        <option value="Lenovo ThinkPad X1 Carbon">Lenovo ThinkPad X1 Carbon</option>
+    </select><br>
+    
+    <label for="locationAddress">Select Location Address:</label><br>
+    <select id="locationAddress" name="locationAddress">
+        <option value="123 Tech St, Bangalore , Karnataka">123 Tech St, Bangalore , Karnataka</option>
+        <option value="456 Gadget Ave , Mumbai , Maharashtra">456 Gadget Ave , Mumbai , Maharashtra</option>
+        <option value="789 Electornics Blvd, Delhi ,India">789 Electornics Blvd, Delhi ,India</option>
+    </select><br>
+
+    <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>
